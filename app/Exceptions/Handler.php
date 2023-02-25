@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -44,5 +47,17 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        // $this->renderable(function (Exception $e, Request $request) {
+        //     if($e instanceof ValidationException)
+        //         return response()->json($e->errors(),$e->status);
+        // });
+
+        $this->renderable(function (Exception $e) {
+            if($e instanceof ValidationException)
+                return response()->json($e->errors(), $e->status);
+        });
+
+
     }
 }
