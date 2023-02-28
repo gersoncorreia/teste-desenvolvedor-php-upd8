@@ -7,6 +7,10 @@ use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Address;
 use App\Models\Client;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ClientController extends Controller
 {
@@ -15,12 +19,17 @@ class ClientController extends Controller
         $clientes = Client::with('addresses')->paginate(5);
         return response()->json($clientes, 200);
     }
-
-    public function store(StoreClienteRequest $request): JsonResponse
+    public function create(): Response
     {
+        return Inertia::render('Client');
+    }
+
+    public function store(StoreClienteRequest $request): RedirectResponse
+    {
+        $request->validated();
         $client = Client::create($request->all());
         $client->addresses()->create(["address" => $request->address, "state" => $request->state, "city" => $request->city]);
-        return response()->json($client, 200);
+        return Redirect::route('client.create');
     }
 
     public function show(Client $cliente): JsonResponse
