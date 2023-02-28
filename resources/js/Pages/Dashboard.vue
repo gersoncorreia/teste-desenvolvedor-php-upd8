@@ -74,12 +74,15 @@ onMounted(() => {
                                     </div>
                                     <div class="mr-2">
                                         <InputLabel for="city" value="Cidade" />
-                                        <select style="width: 210px;" v-model="form.city" id="city" name="city"
+<!--                                         <select style="width: 210px;" v-model="form.city" id="city" name="city"
                                             autocomplete="city-name"
                                             class=" block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                             <option>Rio Branco</option>
                                             <option>Cruzeiro do Sul</option>
-                                        </select>
+                                        </select> -->
+                                        <TextInput id="city" type="text"
+                                        class=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        v-model="form.city" required />
                                     </div>
                                     <div class="grid grid-cols-2 gap-1 mt-5">
                                         <button type="submit"

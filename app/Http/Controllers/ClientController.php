@@ -16,7 +16,7 @@ class ClientController extends Controller
 {
     public function index(): JsonResponse
     {
-        $clientes = Client::with('addresses')->paginate(5);
+        $clientes = Client::with('addresses')->paginate();
         return response()->json($clientes, 200);
     }
     public function create(): Response
